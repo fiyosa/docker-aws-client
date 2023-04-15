@@ -1,12 +1,20 @@
 version: '3'
 
 services:
-  test-client:
+  client:
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: test-client
-    ports:
-      - 3001:3001
+    # container_name: test-client
+    # ports:
+    #   - 3001:3001
     environment:
       NODE_ENV: development
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - client
+    ports:
+      - 3001:3001
