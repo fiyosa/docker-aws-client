@@ -10,6 +10,7 @@ services:
       dockerfile: Dockerfile.app
     image: react/react-app
     container_name: react-app
+    tty: true
     volumes:
       - ./:/usr/share/nginx/html
     environment:
