@@ -1,11 +1,11 @@
 FROM node:14.21.3-slim
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# COPY package.json ./
-
-COPY . .
+COPY package.json ./
 
 RUN npm install --silent
+
+COPY . .
 
 RUN npm run build
