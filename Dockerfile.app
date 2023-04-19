@@ -1,6 +1,6 @@
 FROM node:14.21.3-slim
 
-WORKDIR /usr/share/nginx/html
+WORKDIR /app
 
 COPY package.json ./
 
