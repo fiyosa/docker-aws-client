@@ -2,10 +2,10 @@ FROM node:14.21.3-slim
 
 WORKDIR /app
 
-COPY package.json ./
-
-RUN npm install --silent
+# COPY package.json ./
 
 COPY . .
+
+RUN npm install --silent
 
 RUN npm run build
