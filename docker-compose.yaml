@@ -1,12 +1,39 @@
 version: '3'
 
+networks:
+  react:
+
 services:
-  client:
+  app:
     build:
       context: ./
-      dockerfile: Dockerfile
-    container_name: test-client
-    ports:
-      - 3001:3001
+      dockerfile: Dockerfile.app
+    image: react/react-app
+    container_name: react-app
+    volumes:
+      - ./:/app
     environment:
       NODE_ENV: development
+    working_dir: /app
+    restart: unless-stopped
+    networks:
+      - react
+
+  nginx:
+    build:
+      context: ./
+      dockerfile: Dockerfile.nginx
+    image: react/react-nginx
+    container_name: react-nginx
+    tty: true
+    volumes:
+      - ./:/app
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8080:8080
+    working_dir: /app
+    restart: unless-stopped
+    depends_on:
+      - app
+    networks:
+      - react
